@@ -1,23 +1,56 @@
+<DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <title>Dev Park</title>
+    </head>
 
-<?php include 'config.php';
+    <body>
+    <?php include'connexion.php';?>
 
-$nom = $_POST['nom'];
-$prenom = $_POST['prenom'];
-$email = $_POST['email'];
-$mdp = $_POST['mdp'];
+    <form method="post" action="admin_add_user.php">
 
-try{
-                $dbconnexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $sql = "INSERT INTO utilisateur (nom,prenom,email,mot_de_passe) VALUES('$nom','$prenom','$email','$mdp')";
+        nom : <input type="text" name="nom" size="12"/>
+        <br/>
+        prenom : <input type="text" name="prenom" size="12"/>
+        <br/>
+        email : <input type="email" name="email" size="12"/>
+        <br/>
+        mot de passe : <input type="password" name="mdp" size="12"/>
+        <br/>
+        Admin :<input type="radio" name="role" value="Admin"/>
 
-echo "Compte reussi";
-}
-catch(PDOException $e)
-    {
-        echo $sql."<br>".$e->getMessage();
-    }
-                 $dbconnexion->exec($sql);
+        Membre :<input type="radio" name="role" value="Membre"/>
+        <br>
+        <input type="submit" value="valider"/>
 
 
-$dbconnexion = null;
-?>
+        <?php include 'config.php';
+
+
+        $nom = $_POST['nom'];
+        $prenom = $_POST['prenom'];
+        $email = $_POST['email'];
+        $mdp = $_POST['mdp'];
+        $role = $_POST['role'];
+
+
+        try{
+            $dbconnexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $sql = "INSERT INTO utilisateur (nom,prenom,email,mot_de_passe,role) VALUES('$nom','$prenom','$email','$mdp','$role')";
+
+            echo "Compte reussi";
+        }
+        catch(PDOException $e)
+        {
+            echo $sql."<br>".$e->getMessage();
+        }
+        $dbconnexion->exec($sql);
+
+
+        $dbconnexion = null;
+        ?>
+    </form>
+
+    </body>
+    </html>

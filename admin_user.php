@@ -1,4 +1,9 @@
-<?php include 'config.php';
+<?php
+
+include 'config.php';
+
+include 'connexion.php';
+
 
 
              $req = $dbconnexion->query(" SELECT * FROM utilisateur");
